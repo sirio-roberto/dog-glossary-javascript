@@ -25,7 +25,7 @@ The Dog Glossary web app allows users to explore information about dog breeds. Y
 3. Enter a breed name when prompted, and the app will display relevant information.
 
 ### Demo
-![Video](demo-breeds.mp4)
+![Video](demo-breeds.gif)
 
 ## Installation
 
