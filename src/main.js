@@ -54,6 +54,7 @@ async function fetchSubBreedList(){
         contentDiv.innerHTML = errorParagraph.outerHTML;
       } else {
         const orderedList = document.createElement("ol");
+        orderedList.type = "none";
         breedArray.forEach(breed => {
           const item = document.createElement("li");
           item.innerText = breed;
@@ -76,6 +77,7 @@ async function fetchAllBreedsList(){
     const keys = Object.keys(allBreedsObj);
 
     const orderedList = document.createElement("ol");
+    orderedList.type = "none";
     keys.forEach(breed => {
       const item = document.createElement("li");
       item.innerText = breed;
@@ -84,6 +86,7 @@ async function fetchAllBreedsList(){
       if (allBreedsObj[breed].length > 0) {
         const subBreeds = allBreedsObj[breed];
         const uList = document.createElement("ul");
+        uList.type = "none";
         subBreeds.forEach(sub => uList.insertAdjacentHTML("afterbegin", `<li>${sub}</li>`));
         item.append(uList);
       }
