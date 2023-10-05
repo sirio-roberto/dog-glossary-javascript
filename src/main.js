@@ -2,6 +2,7 @@ const contentDiv = document.getElementById("content");
 const showDogBtn = document.getElementById("button-random-dog");
 const showBreedBtn = document.getElementById("button-show-breed");
 const showSubBreedBtn = document.getElementById("button-show-sub-breed");
+const showAllBreedsBtn = document.getElementById("button-show-all");
 const inputBreed = document.getElementById("input-breed");
 const randomUrl = "https://dog.ceo/api/breeds/image/random";
 
@@ -12,6 +13,7 @@ showBreedBtn.addEventListener("click", () => {
   return fetchImage(breedRandomUrl);
 });
 showSubBreedBtn.addEventListener("click", () => fetchSubBreedList());
+showAllBreedsBtn.addEventListener("click", () => fetchAllBreedsList());
 
 async function fetchImage(url) {
   try {
@@ -60,6 +62,34 @@ async function fetchSubBreedList(){
         contentDiv.innerHTML = orderedList.outerHTML;
       }
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function fetchAllBreedsList(){
+  try {
+    const url = `https://dog.ceo/api/breeds/list/all`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const allBreedsObj = data.message;
+    const keys = Object.keys(allBreedsObj);
+
+    const orderedList = document.createElement("ol");
+    keys.forEach(breed => {
+      const item = document.createElement("li");
+      item.innerText = breed;
+      orderedList.append(item);
+
+      if (allBreedsObj[breed].length > 0) {
+        const subBreeds = allBreedsObj[breed];
+        const uList = document.createElement("ul");
+        subBreeds.forEach(sub => uList.insertAdjacentHTML("afterbegin", `<li>${sub}</li>`));
+        item.append(uList);
+      }
+    });
+    contentDiv.innerHTML = orderedList.outerHTML;
+
   } catch (error) {
     console.log(error);
   }
